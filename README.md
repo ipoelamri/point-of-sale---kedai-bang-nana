@@ -1,59 +1,98 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚀 SYSTEM CONTEXT: SKRIPSI KEDAI BANG NANA
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 1. IDENTITAS PROYEK
 
-## About Laravel
+- **Judul Skripsi:** Pengembangan Aplikasi Web dengan Fitur Self-Ordering dan Payment Gateway (Studi Kasus: Kedai Bang Nana Café and Resto).
+- **Metode Pengembangan:** RAD (Rapid Application Development).
+- **Tujuan:** Membangun sistem POS (Kasir) Hybrid yang melayani pesanan manual (di kasir) dan mandiri (Self-Ordering pelanggan via QR Code).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 2. TECH STACK (STRICT)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Backend:** Laravel 12 (PHP 8.3).
+- **Database:** MySQL.
+- **Frontend:** Blade Templates + **Tailwind CSS** (Via Vite).
+    - _Note:_ DILARANG menggunakan Bootstrap. Gunakan Utility Classes Tailwind sepenuhnya.
+- **Payment Gateway:** Midtrans Snap (Mode Sandbox).
+- **Icons:** Heroicons (SVG).
+- **Server Environment:** Laragon (Localhost).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 3. UI/UX DESIGN SYSTEM (TEMA: WARM/APPETIZING)
 
-## Learning Laravel
+Agar tampilan sesuai selera pemilik kafe dan "enak dilihat", patuhi panduan ini:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- **Color Palette:**
+    - **Primary (Brand):** `Amber` (Orange kekuningan). Gunakan `bg-amber-500` untuk tombol utama, `text-amber-600` untuk aksen.
+    - **Neutral (Background):** `Slate`. Gunakan `bg-slate-50` untuk latar belakang halaman, `text-slate-800` untuk teks utama.
+    - **Success:** `Emerald` (Hijau segar).
+    - **Danger:** `Rose` (Merah lembut).
+- **Component Style:**
+    - **Card:** Background putih, `rounded-xl` (sudut tumpul), `shadow-sm` atau `shadow-md`.
+    - **Button:** Rounded medium (`rounded-lg`), padding yang nyaman untuk sentuhan jari (Mobile First).
+    - **Font:** Gunakan font bawaan Tailwind (Inter/Sans) yang bersih.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 4. STRUKTUR DATABASE (FINAL & MIGRATED)
 
-## Laravel Sponsors
+Jangan merubah struktur ini kecuali diminta. Semua Model sudah dibuat.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+1.  **`users`**
+    - PK: `id_user`
+    - Cols: `username` (unique), `password`, `role` ('admin', 'kasir', 'pemilik', 'pelanggan').
+    - _Note:_ Login menggunakan Username.
+2.  **`kategoris`**
+    - PK: `id_kategori`
+    - Cols: `nama_kategori`.
+3.  **`menus`**
+    - PK: `id_menu`
+    - FK: `kategori_id`
+    - Cols: `nama_menu`, `deskripsi`, `harga` (bigint), `stok` (int), `foto` (string path), `is_available` (boolean).
+4.  **`orders`**
+    - PK: `id_order`
+    - FK: `user_id_kasir` (nullable - jika self order)
+    - Cols: `no_order` (string unik), `nama_pelanggan`, `total_bayar`, `tipe_pesanan` ('dine-in', 'take-away'), `status_order` ('pending', 'lunas', 'diproses', 'selesai').
+5.  **`order_items`**
+    - PK: `id_item`
+    - FK: `order_id`, `menu_id`
+    - Cols: `jumlah`, `harga_satuan`, `subtotal`, `catatan_khusus`.
+6.  **`pembayarans`**
+    - PK: `id_pembayaran`
+    - FK: `order_id`
+    - Cols: `snap_token` (untuk Midtrans), `metode_bayar`, `status_bayar`, `midtrans_log` (text), `waktu_bayar`.
 
-### Premium Partners
+## 5. KONFIGURASI SAAT INI (PROGRESS)
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+- [x] Instalasi Laravel & Setup `.env`.
+- [x] Integrasi Midtrans (Server Key & Client Key Sandbox sudah terpasang di `.env` dan `config/midtrans.php`).
+- [x] Migration Database Selesai.
+- [x] Seeder Data Dummy (User Admin/Kasir/Pemilik + Menu Makanan) Selesai.
+- [x] Custom `AuthController` dibuat (Login via Username & Redirect based on Role).
+- [x] Setup Tailwind CSS (Vite) Selesai.
 
-## Contributing
+## 6. ALUR BISNIS & FEATURES
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- **Role Pelanggan (Self-Service):**
+    - Akses halaman tanpa login (Guest) atau scan QR Meja.
+    - Pilih Menu (Add to Cart).
+    - Checkout -> Isi Nama & No Meja.
+    - Bayar via Midtrans Snap (Popup).
+    - Status berubah jadi "Lunas/Diproses" otomatis via Callback (Webhooks).
+- **Role Kasir:**
+    - Dashboard pesanan masuk (Real-time atau Auto Refresh).
+    - Terima pembayaran tunai (jika ada).
+    - Ubah status pesanan (Diproses -> Selesai/Diantar).
+    - Cetak Struk (Thermal Printer layout).
+- **Role Admin:**
+    - CRUD Master Data (Menu, Kategori, User).
+- **Role Pemilik:**
+    - Melihat Laporan Pendapatan (Harian/Bulanan).
 
-## Code of Conduct
+## 7. ATURAN CODING (RULES)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1.  **Komentar Kode:** Gunakan Bahasa Indonesia agar mudah dimasukkan ke laporan skripsi.
+2.  **Clean Code:** Gunakan Controller yang ramping. Pindahkan logika berat ke Service atau Model jika perlu.
+3.  **UI/UX:** Pastikan tampilan **Mobile Responsive** karena target pengguna utama adalah pelanggan via HP.
+4.  **Midtrans:** Selalu gunakan `config('midtrans.server_key')` jangan hardcode key di controller.
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**INSTRUKSI UNTUK AI:**
+Setiap kali saya meminta fitur baru, selalu referensikan struktur tabel di atas dan gunakan Tailwind CSS untuk UI-nya. Jangan tawarkan Bootstrap.
