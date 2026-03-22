@@ -25,7 +25,7 @@
 		</style>
 	</head>
 
-	<body class="bg-slate-50">
+	<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
 		<div class="flex min-h-screen flex-col">
 			<!-- Header -->
 			<header class="sticky top-0 z-50 shadow-md" style="background: linear-gradient(135deg, #dc0080 0%, #d90b84 100%);">
@@ -46,8 +46,8 @@
 			<!-- Main Content -->
 			<main class="mx-auto w-full max-w-4xl flex-1 px-4 py-6 sm:py-8">
 				<div class="mb-8">
-					<h2 class="text-2xl font-bold text-slate-800 sm:text-3xl">🛒 Keranjang Belanja</h2>
-					<p class="mt-1 text-sm text-slate-600">Periksa pesanan Anda sebelum checkout</p>
+					<h2 class="text-2xl font-bold text-white sm:text-3xl">🛒 Keranjang Belanja</h2>
+					<p class="mt-1 text-sm text-slate-400">Periksa pesanan Anda sebelum checkout</p>
 				</div>
 
 				@if (session('success'))
@@ -64,17 +64,18 @@
 					<div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
 						<!-- Cart Items -->
 						<div class="lg:col-span-2">
-							<div class="overflow-hidden rounded-xl bg-white shadow-sm">
-								<!-- Desktop View -->
-								<div class="hidden overflow-x-auto sm:block">
+							<!-- Desktop View -->
+							<div class="hidden overflow-hidden rounded-xl shadow-lg sm:block"
+								style="background: #1e293b; border: 1px solid #334155;">
+								<div class="overflow-x-auto">
 									<table class="w-full">
-										<thead class="border-b border-slate-200 bg-gradient-to-r from-slate-50 to-slate-100">
+										<thead style="background: #0f172a; border-bottom: 2px solid #334155;">
 											<tr>
-												<th class="px-4 py-3 text-left text-sm font-semibold text-slate-700">Menu</th>
-												<th class="px-4 py-3 text-right text-sm font-semibold text-slate-700">Harga</th>
-												<th class="px-4 py-3 text-right text-sm font-semibold text-slate-700">Jumlah</th>
-												<th class="px-4 py-3 text-right text-sm font-semibold text-slate-700">Subtotal</th>
-												<th class="px-4 py-3 text-center text-sm font-semibold text-slate-700">Aksi</th>
+												<th class="px-6 py-4 text-left text-sm font-bold text-white">Menu</th>
+												<th class="px-6 py-4 text-right text-sm font-bold text-white">Harga</th>
+												<th class="px-6 py-4 text-center text-sm font-bold text-white">Jumlah</th>
+												<th class="px-6 py-4 text-right text-sm font-bold text-white">Subtotal</th>
+												<th class="px-6 py-4 text-center text-sm font-bold text-white">Aksi</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -84,31 +85,34 @@
 													$subtotal = $item['harga'] * $item['quantity'];
 													$grandTotal += $subtotal;
 												@endphp
-												<tr class="border-b border-slate-200 transition hover:bg-pink-50">
-													<td class="px-4 py-3">
+												<tr style="background: #1e293b; border-bottom: 1px solid #334155;"
+													class="transition hover:bg-slate-800 hover:shadow-md">
+													<td class="px-6 py-4">
 														<div class="flex gap-3">
 															<img src="{{ asset('storage/' . $item['foto']) }}" alt="{{ $item['nama_menu'] }}"
-																class="h-14 w-14 rounded-lg object-cover shadow-sm">
+																class="h-16 w-16 rounded-lg border border-slate-600 object-cover shadow-sm">
 															<div>
-																<p class="text-sm font-medium text-slate-800 sm:text-base">{{ $item['nama_menu'] }}</p>
+																<p class="font-semibold text-white">{{ $item['nama_menu'] }}</p>
+																<p class="mt-1 text-xs text-slate-400">Kategori: Menu</p>
 															</div>
 														</div>
 													</td>
-													<td class="px-4 py-3 text-right text-sm text-slate-700 sm:text-base">
+													<td class="px-6 py-4 text-right text-sm font-medium text-slate-300">
 														Rp {{ number_format($item['harga'], 0, ',', '.') }}
 													</td>
-													<td class="px-4 py-3 text-right">
-														<span class="font-medium text-slate-700">{{ $item['quantity'] }}</span>
+													<td class="px-6 py-4 text-center">
+														<span
+															class="inline-block rounded-lg bg-slate-700 px-3 py-1 font-bold text-white">{{ $item['quantity'] }}</span>
 													</td>
-													<td class="px-4 py-3 text-right font-semibold text-amber-600">
+													<td class="px-6 py-4 text-right font-bold" style="color: #dc0080;">
 														Rp {{ number_format($subtotal, 0, ',', '.') }}
 													</td>
-													<td class="px-4 py-3 text-center">
+													<td class="px-6 py-4 text-center">
 														<form action="{{ route('cart.remove', $menuId) }}" method="POST" style="display:inline;">
 															@csrf
 															@method('DELETE')
 															<button type="submit"
-																class="rounded px-3 py-1 text-sm font-medium text-rose-600 transition hover:bg-rose-50 hover:text-rose-800">
+																class="rounded-lg bg-rose-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-rose-700">
 																🗑 Hapus
 															</button>
 														</form>
@@ -118,83 +122,96 @@
 										</tbody>
 									</table>
 								</div>
+							</div>
 
-								<!-- Mobile View -->
-								<div class="sm:hidden">
-									@php $grandTotal = 0; @endphp
-									@foreach ($cart as $menuId => $item)
-										@php
-											$subtotal = $item['harga'] * $item['quantity'];
-											$grandTotal += $subtotal;
-										@endphp
-										<div class="cart-item">
-											<div class="flex gap-3">
-												<img src="{{ asset('storage/' . $item['foto']) }}" alt="{{ $item['nama_menu'] }}"
-													class="h-20 w-20 flex-shrink-0 rounded-lg object-cover shadow-sm">
-												<div class="flex-1">
-													<p class="font-bold text-slate-800">{{ $item['nama_menu'] }}</p>
-													<p class="mt-1 text-sm text-slate-600">Rp {{ number_format($item['harga'], 0, ',', '.') }} / item</p>
-													<p class="mt-2 text-sm font-semibold" style="color: #dc0080;">Qty: {{ $item['quantity'] }}</p>
-												</div>
-											</div>
-											<div class="cart-item-row">
-												<div>
-													<p class="text-xs text-slate-600">Subtotal</p>
-													<p class="text-lg font-bold text-amber-600">Rp {{ number_format($subtotal, 0, ',', '.') }}</p>
-												</div>
-												<form action="{{ route('cart.remove', $menuId) }}" method="POST" style="display:inline;">
-													@csrf
-													@method('DELETE')
-													<button type="submit"
-														class="rounded-lg bg-rose-500 px-3 py-2 text-sm font-medium text-white transition hover:bg-rose-600">
-														🗑 Hapus
-													</button>
-												</form>
+							<!-- Mobile View -->
+							<div class="space-y-3 sm:hidden">
+								@php $grandTotal = 0; @endphp
+								@foreach ($cart as $menuId => $item)
+									@php
+										$subtotal = $item['harga'] * $item['quantity'];
+										$grandTotal += $subtotal;
+									@endphp
+									<div class="rounded-lg p-4 shadow-md" style="background: #1e293b; border: 1px solid #334155;">
+										<!-- Image & Info -->
+										<div class="mb-4 flex gap-3">
+											<img src="{{ asset('storage/' . $item['foto']) }}" alt="{{ $item['nama_menu'] }}"
+												class="h-20 w-20 flex-shrink-0 rounded-lg border border-slate-600 object-cover">
+											<div class="flex-1">
+												<p class="text-base font-bold text-white">{{ $item['nama_menu'] }}</p>
+												<p class="mt-1 text-sm text-slate-400">Rp {{ number_format($item['harga'], 0, ',', '.') }}/item</p>
 											</div>
 										</div>
-									@endforeach
-								</div>
+										<!-- Quantity & Price -->
+										<div class="flex items-center justify-between border-t border-slate-700 pt-3">
+											<div>
+												<p class="mb-1 text-xs text-slate-400">Kuantitas</p>
+												<span
+													class="inline-block rounded-lg bg-slate-700 px-3 py-1 text-sm font-bold text-white">{{ $item['quantity'] }}</span>
+											</div>
+											<div class="text-right">
+												<p class="mb-1 text-xs text-slate-400">Subtotal</p>
+												<p class="text-lg font-bold" style="color: #dc0080;">Rp {{ number_format($subtotal, 0, ',', '.') }}</p>
+											</div>
+											<form action="{{ route('cart.remove', $menuId) }}" method="POST" style="display:inline;">
+												@csrf
+												@method('DELETE')
+												<button type="submit"
+													class="rounded-lg bg-rose-600 px-3 py-2 text-sm font-medium text-white transition hover:bg-rose-700">
+													Hapus
+												</button>
+											</form>
+										</div>
+									</div>
+								@endforeach
 							</div>
 						</div>
 
 						<!-- Summary Card -->
 						<div class="lg:col-span-1">
-							<div class="sticky top-24 rounded-xl border-2 p-6 shadow-lg"
-								style="background: linear-gradient(135deg, #fce7f3 0%, #fce7f3 100%); border-color: #dc0080;">
-								<h3 class="mb-4 text-lg font-bold text-slate-800">📋 Ringkasan</h3>
+							<div class="sticky top-24 rounded-lg p-6 shadow-lg" style="background: #1e293b; border: 2px solid #dc0080;">
+								<h3 class="mb-6 text-xl font-bold text-white">📋 Ringkasan Pesanan</h3>
 
-								<div class="mb-6 space-y-3 pb-6" style="border-bottom: 1px solid #dc0080;">
+								<!-- Breakdown -->
+								<div class="mb-6 space-y-3 pb-6" style="border-bottom: 1px solid #334155;">
 									<div class="flex justify-between text-sm">
-										<span class="text-slate-600">Subtotal:</span>
-										<span class="font-semibold text-slate-800">Rp {{ number_format($grandTotal, 0, ',', '.') }}</span>
+										<span class="text-slate-400">Subtotal:</span>
+										<span class="font-semibold text-white">Rp {{ number_format($grandTotal, 0, ',', '.') }}</span>
 									</div>
 									@php $ppn = $grandTotal * 0.1; @endphp
 									<div class="flex justify-between text-sm">
-										<span class="text-slate-600">PPN 10%:</span>
-										<span class="font-semibold text-slate-800">Rp {{ number_format($ppn, 0, ',', '.') }}</span>
+										<span class="text-slate-400">PPN 10%:</span>
+										<span class="font-semibold text-white">Rp {{ number_format($ppn, 0, ',', '.') }}</span>
 									</div>
 								</div>
 
-								<div class="mb-6 flex items-baseline justify-between">
-									<span class="text-lg font-bold text-slate-800">Total:</span>
-									<span class="text-3xl font-bold" style="color: #dc0080;">
-										Rp {{ number_format($total, 0, ',', '.') }}
-									</span>
+								<!-- Total -->
+								<div class="mb-6">
+									<div class="flex items-baseline justify-between">
+										<span class="text-base font-bold text-slate-300">Total Bayar:</span>
+										<span class="text-3xl font-bold" style="color: #dc0080;">
+											Rp {{ number_format($total, 0, ',', '.') }}
+										</span>
+									</div>
 								</div>
 
+								<!-- Buttons -->
 								<div class="space-y-3">
 									<a href="{{ route('menu.public') }}"
-										class="block w-full rounded-lg border-2 border-slate-300 px-4 py-3 text-center font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-100">
+										class="block w-full rounded-lg border-2 border-slate-600 bg-slate-900 px-4 py-3 text-center font-bold text-white transition hover:border-slate-500 hover:bg-slate-800">
 										← Lanjut Belanja
 									</a>
 									<a href="{{ route('order.checkout') }}"
 										class="block w-full rounded-lg px-4 py-3 text-center font-bold text-white shadow-md transition hover:shadow-lg"
 										style="background: linear-gradient(135deg, #dc0080 0%, #d90b84 100%);">
+										✓ Lanjut ke Pembayaran →
+									</a>
 								</div>
 
-								<div class="mt-6 space-y-1 text-center text-xs text-slate-600">
-									<p>✓ Pembayaran aman</p>
-									<p>✓ Gratis ongkos kirim untuk pesanan > Rp 100k</p>
+								<!-- Info -->
+								<div class="mt-6 space-y-2 text-center text-xs text-slate-400">
+									<p>✓ Pembayaran Aman & Terenkripsi</p>
+									<p>✓ Proses Cepat & Mudah</p>
 								</div>
 							</div>
 						</div>

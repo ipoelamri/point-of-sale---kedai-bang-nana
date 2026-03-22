@@ -37,7 +37,7 @@
 		</style>
 	</head>
 
-	<body class="bg-slate-50">
+	<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
 		<div class="flex min-h-screen flex-col">
 			<!-- Header -->
 			<header class="sticky top-0 z-50 shadow-md" style="background: linear-gradient(135deg, #dc0080 0%, #d90b84 100%);">
@@ -58,7 +58,7 @@
 			</header>
 
 			<!-- Progress Bar -->
-			<div class="bg-white shadow-sm">
+			<div class="border-b border-slate-700 bg-slate-800 shadow-sm">
 				<div class="mx-auto max-w-7xl px-4 py-6">
 					<div class="flex items-center justify-between">
 						<div class="flex flex-col items-center gap-1 sm:gap-2">
@@ -87,23 +87,23 @@
 			<!-- Main Content -->
 			<main class="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:py-8">
 				<div class="mb-8">
-					<h2 class="text-2xl font-bold text-slate-800 sm:text-3xl">📝 Checkout Pesanan</h2>
-					<p class="mt-1 text-sm text-slate-600">Lengkapi informasi pesanan Anda</p>
+					<h2 class="text-2xl font-bold text-white sm:text-3xl">📝 Checkout Pesanan</h2>
+					<p class="mt-1 text-sm text-slate-400">Lengkapi informasi pesanan Anda</p>
 				</div>
 
 				<div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
 					<!-- Form Checkout -->
-					<div class="form-animate rounded-xl border border-slate-100 bg-white p-6 shadow-lg sm:p-8 lg:col-span-2">
-						<h3 class="mb-8 flex items-center gap-2 text-xl font-bold text-slate-800 sm:text-2xl">
+					<div class="form-animate rounded-xl border border-slate-700 bg-slate-900 p-6 shadow-lg sm:p-8 lg:col-span-2">
+						<h3 class="mb-8 flex items-center gap-2 text-xl font-bold text-white sm:text-2xl">
 							<span class="text-2xl">🛎️</span> Informasi Pesanan
 						</h3>
 
 						@if ($errors->any())
-							<div class="mb-6 rounded-lg border-l-4 border-rose-500 bg-rose-50 p-4 shadow-sm">
-								<h4 class="mb-2 flex items-center gap-2 font-semibold text-rose-800">
+							<div class="mb-6 rounded-lg border-l-4 border-rose-500 bg-rose-950 p-4 shadow-sm">
+								<h4 class="mb-2 flex items-center gap-2 font-semibold text-rose-300">
 									<span>⚠️</span> Perbaiki Error:
 								</h4>
-								<ul class="space-y-1 text-sm text-rose-700">
+								<ul class="space-y-1 text-sm text-rose-400">
 									@foreach ($errors->all() as $error)
 										<li>• {{ $error }}</li>
 									@endforeach
@@ -116,29 +116,30 @@
 
 							<!-- Nama Pemesan -->
 							<div class="form-field space-y-2">
-								<label class="block font-semibold text-slate-700 transition" for="nama_pemesan">
+								<label class="block font-semibold text-white transition" for="nama_pemesan">
 									👤 Nama Pemesan
 								</label>
 								<input id="nama_pemesan" type="text" name="nama_pemesan" value="{{ old('nama_pemesan') }}"
-									class="w-full rounded-lg border-2 border-slate-300 px-4 py-3 text-slate-800 shadow-sm transition focus:border-pink-400 focus:outline-none"
+									class="w-full rounded-lg border-2 border-slate-600 bg-slate-800 px-4 py-3 text-white shadow-sm transition focus:border-pink-400 focus:outline-none"
 									placeholder="Masukkan nama Anda" required>
 								@error('nama_pemesan')
-									<p class="text-sm text-rose-600">{{ $message }}</p>
+									<p class="text-sm text-rose-400">{{ $message }}</p>
 								@enderror
 							</div>
 
 							<!-- Tipe Pesanan -->
 							<div class="space-y-3">
-								<label class="block font-semibold text-slate-700">🏠 Tipe Pesanan</label>
+								<label class="block font-semibold text-white">🏠 Tipe Pesanan</label>
 								<div class="space-y-2">
 									@foreach (['Dine In' => 'Makan di Tempat', 'Take Away' => 'Bawa Pulang'] as $value => $label)
-										<label class="flex cursor-pointer items-center gap-4 rounded-lg border-2 border-slate-200 p-4 transition"
-											style="hover-border-color: #dc0080; hover-bg-color: #fce7f3;">
+										<label
+											class="flex cursor-pointer items-center gap-4 rounded-lg border-2 border-slate-700 bg-slate-800 p-4 transition hover:border-pink-500"
+											style="hover-bg-color: #1e293b;">
 											<input type="radio" name="tipe_pesanan" value="{{ $value }}"
 												{{ old('tipe_pesanan') == $value ? 'checked' : '' }} class="h-5 w-5" onchange="updateBorderAndBg(this)">
 											<div>
-												<p class="font-semibold text-slate-800">{{ $label }}</p>
-												<p class="text-sm text-slate-600">
+												<p class="font-semibold text-white">{{ $label }}</p>
+												<p class="text-sm text-slate-400">
 													{{ $value === 'Dine In' ? 'Pesan untuk dimakan di restoran' : 'Pesan untuk dibawa pulang' }}
 												</p>
 											</div>
@@ -147,27 +148,27 @@
 									@endforeach
 								</div>
 								@error('tipe_pesanan')
-									<p class="text-sm text-rose-600">{{ $message }}</p>
+									<p class="text-sm text-rose-400">{{ $message }}</p>
 								@enderror
 							</div>
 
 							<!-- Nomor Meja -->
 							<div class="form-field space-y-2">
-								<label class="block font-semibold text-slate-700 transition" for="no_meja">
-									🎫 Nomor Meja <span class="text-slate-500">(Untuk Dine In)</span>
+								<label class="block font-semibold text-white transition" for="no_meja">
+									🎫 Nomor Meja <span class="text-slate-400">(Untuk Dine In)</span>
 								</label>
 								<input id="no_meja" type="text" name="no_meja" value="{{ old('no_meja') }}"
-									class="w-full rounded-lg border-2 border-slate-300 px-4 py-3 text-slate-800 shadow-sm transition focus:border-pink-400 focus:outline-none"
+									class="w-full rounded-lg border-2 border-slate-600 bg-slate-800 px-4 py-3 text-white shadow-sm transition focus:border-pink-400 focus:outline-none"
 									placeholder="Masukkan nomor meja">
 								@error('no_meja')
-									<p class="text-sm text-rose-600">{{ $message }}</p>
+									<p class="text-sm text-rose-400">{{ $message }}</p>
 								@enderror
 							</div>
 
 							<!-- Tombol Submit -->
 							<div class="flex flex-col gap-3 pt-6 sm:flex-row">
 								<a href="{{ route('cart.view') }}"
-									class="flex-1 rounded-lg border-2 border-slate-300 px-6 py-3 text-center font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-100">
+									class="flex-1 rounded-lg border-2 border-slate-600 bg-slate-800 px-6 py-3 text-center font-semibold text-white transition hover:border-slate-500 hover:bg-slate-700">
 									← Kembali
 								</a>
 								<button type="submit"
@@ -181,13 +182,12 @@
 
 					<!-- Summary Card -->
 					<div class="summary-sticky lg:sticky lg:top-24 lg:h-fit">
-						<div class="rounded-xl border-2 p-6 shadow-lg"
-							style="background: linear-gradient(135deg, #fce7f3 0%, #fce7f3 100%); border-color: #dc0080;">
-							<h3 class="mb-6 flex items-center gap-2 text-lg font-bold text-slate-800">
+						<div class="rounded-xl border-2 border-slate-700 bg-slate-800 p-6 shadow-lg">
+							<h3 class="mb-6 flex items-center gap-2 text-lg font-bold text-white">
 								<span>📋</span> Ringkasan Pesanan
 							</h3>
 
-							<div class="mb-6 space-y-3 pb-6" style="border-bottom: 1px solid #dc0080;">
+							<div class="mb-6 space-y-3 pb-6" style="border-bottom: 1px solid #475569;">
 								@php $grandTotal = 0; @endphp
 								@foreach ($cart as $menuId => $item)
 									@php
@@ -195,8 +195,8 @@
 										$grandTotal += $subtotal;
 									@endphp
 									<div class="flex justify-between text-sm">
-										<span class="text-slate-700">{{ $item['quantity'] }}x {{ $item['nama_menu'] }}</span>
-										<span class="font-semibold text-slate-800">Rp {{ number_format($subtotal, 0, ',', '.') }}</span>
+										<span class="text-slate-300">{{ $item['quantity'] }}x {{ $item['nama_menu'] }}</span>
+										<span class="font-semibold text-white">Rp {{ number_format($subtotal, 0, ',', '.') }}</span>
 									</div>
 								@endforeach
 							</div>

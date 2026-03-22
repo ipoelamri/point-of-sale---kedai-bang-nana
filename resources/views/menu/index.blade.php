@@ -4,30 +4,31 @@
 
 @section('content')
 	<div class="mb-6 flex items-center justify-between">
-		<h1 class="text-3xl font-bold text-slate-800">Manajemen Menu</h1>
+		<h1 class="text-3xl font-bold text-white">Manajemen Menu</h1>
 		<a href="{{ route('menu.create') }}"
-			class="rounded-lg bg-amber-500 px-4 py-2 font-medium text-white transition duration-300 ease-in-out hover:bg-amber-600">
+			class="rounded-lg px-4 py-2 font-medium text-white transition duration-300 ease-in-out"
+			style="background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);">
 			+ Tambah Menu
 		</a>
 	</div>
 
-	<div class="rounded-xl bg-white p-6 shadow-md">
+	<div class="rounded-xl border border-slate-700 bg-slate-900 p-6 shadow-md">
 		<div class="overflow-x-auto">
 			<table class="min-w-full">
-				<thead class="bg-slate-50">
+				<thead class="bg-slate-800">
 					<tr>
-						<th class="px-6 py-3 text-left text-sm font-medium text-slate-600">Foto</th>
-						<th class="px-6 py-3 text-left text-sm font-medium text-slate-600">Nama Menu</th>
-						<th class="px-6 py-3 text-left text-sm font-medium text-slate-600">Kategori</th>
-						<th class="px-6 py-3 text-left text-sm font-medium text-slate-600">Harga</th>
-						<th class="px-6 py-3 text-left text-sm font-medium text-slate-600">Status</th>
-						<th class="px-6 py-3 text-right text-sm font-medium text-slate-600">Aksi</th>
+						<th class="px-6 py-3 text-left text-sm font-medium text-slate-300">Foto</th>
+						<th class="px-6 py-3 text-left text-sm font-medium text-slate-300">Nama Menu</th>
+						<th class="px-6 py-3 text-left text-sm font-medium text-slate-300">Kategori</th>
+						<th class="px-6 py-3 text-left text-sm font-medium text-slate-300">Harga</th>
+						<th class="px-6 py-3 text-left text-sm font-medium text-slate-300">Status</th>
+						<th class="px-6 py-3 text-right text-sm font-medium text-slate-300">Aksi</th>
 					</tr>
 				</thead>
 				<tbody>
 					{{-- Data akan di-loop di sini --}}
 					@forelse ($menus as $menu)
-						<tr class="border-b border-slate-200 hover:bg-slate-50">
+						<tr class="border-b border-slate-700 hover:bg-slate-800">
 							<td class="px-6 py-4">
 								@php
 									$storagePath = public_path('storage/' . $menu->foto);
@@ -42,9 +43,9 @@
 								@endphp
 								<img src="{{ $src }}" alt="{{ $menu->nama_menu }}" class="h-12 w-12 rounded-md object-cover">
 							</td>
-							<td class="px-6 py-4 font-medium text-slate-900">{{ $menu->nama_menu }}</td>
-							<td class="px-6 py-4 text-slate-700">{{ $menu->kategori->nama_kategori }}</td>
-							<td class="px-6 py-4 text-slate-700">Rp {{ number_format($menu->harga, 0, ',', '.') }}</td>
+							<td class="px-6 py-4 font-medium text-white">{{ $menu->nama_menu }}</td>
+							<td class="px-6 py-4 text-slate-300">{{ $menu->kategori->nama_kategori }}</td>
+							<td class="px-6 py-4 text-slate-300">Rp {{ number_format($menu->harga, 0, ',', '.') }}</td>
 							<td class="px-6 py-4">
 								@if ($menu->is_available)
 									<span class="rounded-full bg-green-100 px-2.5 py-1 text-xs font-medium text-green-800">Tersedia</span>

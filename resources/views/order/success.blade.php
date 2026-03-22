@@ -7,6 +7,10 @@
 		<title>Pembayaran Berhasil - Kedai Bang Nana</title>
 		@vite(['resources/css/app.css', 'resources/js/app.js'])
 		<style>
+			body {
+				background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+			}
+
 			@keyframes checkmark-bounce {
 
 				0%,
@@ -200,14 +204,14 @@
 							<span>Pesan Lagi</span>
 						</a>
 						<button onclick="window.print()"
-							class="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-slate-300 px-6 py-3 text-center font-bold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50">
+							class="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-slate-600 px-6 py-3 text-center font-bold text-white transition hover:border-slate-500 hover:bg-slate-800">
 							<span>🖨️</span>
 							<span>Print Bukti</span>
 						</button>
 					</div>
 
 					<!-- Help Section -->
-					<div class="slide-down rounded-lg border border-slate-200 bg-slate-50 p-4 text-center sm:p-6"
+					<div class="slide-down rounded-lg border border-slate-700 bg-slate-900 p-4 text-center text-white sm:p-6"
 						style="animation-delay: 0.5s;">
 						<p class="mb-3 text-sm font-semibold text-slate-600">
 							❓ Butuh bantuan?

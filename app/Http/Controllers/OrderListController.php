@@ -12,8 +12,8 @@ class OrderListController extends Controller
      */
     public function kasirDashboard()
     {
-        // Pastikan user adalah kasir atau admin
-        if (! auth()->check() || (auth()->user()->role !== 'kasir' && auth()->user()->role !== 'admin')) {
+        // Pastikan user adalah kasir, admin, atau pemilik
+        if (! auth()->check() || (auth()->user()->role !== 'kasir' && auth()->user()->role !== 'admin' && auth()->user()->role !== 'pemilik')) {
             return redirect('/dashboard')->with('error', 'Anda tidak memiliki akses ke halaman ini');
         }
 
@@ -31,8 +31,8 @@ class OrderListController extends Controller
      */
     public function updateStatus(Request $request, Order $order)
     {
-        // Validasi user authorization
-        if (! auth()->check() || (auth()->user()->role !== 'kasir' && auth()->user()->role !== 'admin')) {
+        // Validasi user authorization - Allow kasir, admin, dan pemilik
+        if (! auth()->check() || (auth()->user()->role !== 'kasir' && auth()->user()->role !== 'admin' && auth()->user()->role !== 'pemilik')) {
             return back()->with('error', 'Unauthorized');
         }
 

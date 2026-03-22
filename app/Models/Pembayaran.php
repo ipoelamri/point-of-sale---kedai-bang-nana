@@ -17,6 +17,10 @@ class Pembayaran extends Model
         'waktu_bayar',
     ];
 
+    protected $casts = [
+        'waktu_bayar' => 'datetime',
+    ];
+
     // Relasi: Pembayaran milik satu Order
     public function order()
     {

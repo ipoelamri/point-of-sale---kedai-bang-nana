@@ -3,58 +3,60 @@
 @section('title', 'Tambah User Baru')
 
 @section('content')
-    <h1 class="text-3xl font-bold text-slate-800 mb-6">Tambah User Baru</h1>
+	<h1 class="mb-6 text-3xl font-bold text-white">Tambah User Baru</h1>
 
-    <div class="bg-white p-8 rounded-xl shadow-md max-w-2xl mx-auto">
-        <form action="{{ route('user.store') }}" method="POST">
-            @csrf
-            
-            {{-- Username --}}
-            <div class="mb-4">
-                <label for="username" class="block text-slate-700 text-sm font-medium mb-2">Username</label>
-                <input type="text" name="username" id="username" value="{{ old('username') }}"
-                       class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 @error('username') border-red-500 @enderror"
-                       required autofocus>
-                @error('username')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
+	<div class="mx-auto max-w-2xl rounded-xl border border-slate-700 bg-slate-900 p-8 shadow-md">
+		<form action="{{ route('user.store') }}" method="POST">
+			@csrf
 
-            {{-- Password --}}
-            <div class="mb-4">
-                <label for="password" class="block text-slate-700 text-sm font-medium mb-2">Password</label>
-                <input type="password" name="password" id="password"
-                       class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 @error('password') border-red-500 @enderror"
-                       required>
-                @error('password')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-            
-            {{-- Role --}}
-            <div class="mb-4">
-                <label for="role" class="block text-slate-700 text-sm font-medium mb-2">Role</label>
-                <select name="role" id="role" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 @error('role') border-red-500 @enderror" required>
-                    <option value="admin">Admin</option>
-                    <option value="kasir">Kasir</option>
-                    <option value="pemilik">Pemilik</option>
-                </select>
-                @error('role')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
+			{{-- Username --}}
+			<div class="mb-4">
+				<label for="username" class="mb-2 block text-sm font-medium text-slate-300">Username</label>
+				<input type="text" name="username" id="username" value="{{ old('username') }}"
+					class="@error('username') border-red-500 @enderror w-full rounded-lg border border-slate-600 bg-slate-800 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-pink-500"
+					required autofocus>
+				@error('username')
+					<p class="mt-1 text-xs text-red-400">{{ $message }}</p>
+				@enderror
+			</div>
 
-            {{-- Tombol Aksi --}}
-            <div class="mt-6 flex justify-end gap-4">
-                <a href="{{ route('user.index') }}"
-                   class="bg-white border border-slate-300 text-slate-700 font-medium py-2 px-4 rounded-lg hover:bg-slate-50 transition duration-300 ease-in-out">
-                    Batal
-                </a>
-                <button type="submit"
-                        class="bg-amber-500 hover:bg-amber-600 text-white font-medium py-2 px-4 rounded-lg transition duration-300 ease-in-out">
-                    Simpan User
-                </button>
-            </div>
-        </form>
-    </div>
+			{{-- Password --}}
+			<div class="mb-4">
+				<label for="password" class="mb-2 block text-sm font-medium text-slate-300">Password</label>
+				<input type="password" name="password" id="password"
+					class="@error('password') border-red-500 @enderror w-full rounded-lg border border-slate-600 bg-slate-800 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-pink-500"
+					required>
+				@error('password')
+					<p class="mt-1 text-xs text-red-400">{{ $message }}</p>
+				@enderror
+			</div>
+
+			{{-- Role --}}
+			<div class="mb-4">
+				<label for="role" class="mb-2 block text-sm font-medium text-slate-300">Role</label>
+				<select name="role" id="role"
+					class="@error('role') border-red-500 @enderror w-full rounded-lg border border-slate-600 bg-slate-800 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-pink-500"
+					required>
+					<option value="admin">Admin</option>
+					<option value="kasir">Kasir</option>
+					<option value="pemilik">Pemilik</option>
+				</select>
+				@error('role')
+					<p class="mt-1 text-xs text-red-400">{{ $message }}</p>
+				@enderror
+			</div>
+
+			{{-- Tombol Aksi --}}
+			<div class="mt-6 flex justify-end gap-4">
+				<a href="{{ route('user.index') }}"
+					class="rounded-lg border border-slate-600 bg-slate-800 px-4 py-2 font-medium text-slate-300 transition duration-300 ease-in-out hover:bg-slate-700">
+					Batal
+				</a>
+				<button type="submit"
+					class="rounded-lg bg-amber-500 px-4 py-2 font-medium text-white transition duration-300 ease-in-out hover:bg-amber-600">
+					Simpan User
+				</button>
+			</div>
+		</form>
+	</div>
 @endsection

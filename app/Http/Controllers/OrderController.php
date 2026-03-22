@@ -108,8 +108,8 @@ class OrderController extends Controller
     public function processCheckout(Request $request)
     {
         $validated = $request->validate([
-            'nama_pelanggan' => 'required|string|max:100',
-            'tipe_pesanan' => 'required|in:dine-in,take-away',
+            'nama_pemesan' => 'required|string|max:100',
+            'tipe_pesanan' => 'required|in:Dine In,Take Away',
             'no_meja' => 'nullable|string|max:10',
         ]);
 
@@ -130,7 +130,7 @@ class OrderController extends Controller
         // Buat order
         $order = Order::create([
             'no_order' => $noOrder,
-            'nama_pelanggan' => $validated['nama_pelanggan'],
+            'nama_pelanggan' => $validated['nama_pemesan'],
             'total_bayar' => $totalBayar,
             'tipe_pesanan' => $validated['tipe_pesanan'],
             'no_meja' => $validated['no_meja'] ?? null,

@@ -43,7 +43,7 @@
 		</style>
 	</head>
 
-	<body class="bg-gradient-to-br from-slate-50 to-slate-50">
+	<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
 		<div class="flex min-h-screen flex-col">
 			<!-- Header -->
 			<header class="sticky top-0 z-50 shadow-lg" style="background: linear-gradient(135deg, #dc0080 0%, #d90b84 100%);">
@@ -160,7 +160,7 @@
 					</div>
 
 					<!-- Help Section -->
-					<div class="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-4 text-center sm:p-6">
+					<div class="mt-6 rounded-lg border border-slate-700 bg-slate-900 p-4 text-center text-white sm:p-6">
 						<p class="mb-3 text-sm font-semibold text-slate-600">
 							❓ Butuh bantuan?
 						</p>

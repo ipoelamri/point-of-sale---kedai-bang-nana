@@ -8,16 +8,18 @@
 		@vite(['resources/css/app.css', 'resources/js/app.js'])
 	</head>
 
-	<body class="bg-slate-50">
+	<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
 		<div class="flex min-h-screen flex-col">
 			<!-- Header -->
-			<header class="sticky top-0 z-50 bg-white shadow-sm">
+			<header class="sticky top-0 z-50 border-b border-slate-700 bg-slate-900 shadow-sm">
 				<div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
 					<div>
-						<h1 class="text-2xl font-bold text-amber-600">Kedai Bang Nana</h1>
-						<p class="text-sm text-slate-600">Café & Resto</p>
+						<h1 class="text-2xl font-bold text-white"
+							style="background: linear-gradient(135deg, #ff1493 0%, #d90b84 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+							Kedai Bang Nana</h1>
+						<p class="text-sm text-slate-400">Café & Resto</p>
 					</div>
-					<a href="{{ route('menu.public') }}" class="font-medium text-amber-600 hover:text-amber-800">
+					<a href="{{ route('menu.public') }}" class="font-medium text-emerald-400 hover:text-emerald-300">
 						← Kembali ke Menu
 					</a>
 				</div>
@@ -25,7 +27,7 @@
 
 			<!-- Main Content -->
 			<main class="mx-auto w-full max-w-4xl flex-1 px-4 py-8">
-				<h2 class="mb-8 text-3xl font-bold text-slate-800">Pilih Metode Pembayaran</h2>
+				<h2 class="mb-8 text-3xl font-bold text-white">Pilih Metode Pembayaran</h2>
 
 				<div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
 					<!-- Payment Methods -->
@@ -62,7 +64,7 @@
 					<div class="sticky top-24 h-fit rounded-xl bg-white p-6 shadow-sm">
 						<h3 class="mb-4 text-xl font-semibold text-slate-800">Ringkasan Pesanan</h3>
 
-						<div class="mb-4 rounded-lg bg-slate-50 p-4">
+						<div class="mb-4 rounded-lg border border-slate-700 bg-slate-800 p-4">
 							<p class="text-sm text-slate-600">No. Pesanan:</p>
 							<p class="text-lg font-semibold text-slate-800">{{ $order->no_order }}</p>
 						</div>

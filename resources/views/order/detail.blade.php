@@ -5,10 +5,10 @@
 @section('content')
 	<div class="mb-6 flex items-center justify-between">
 		<div>
-			<h1 class="text-3xl font-bold text-slate-800">Detail Pesanan</h1>
-			<p class="mt-1 text-slate-600">{{ $order->no_order }}</p>
+			<h1 class="text-3xl font-bold text-white">Detail Pesanan</h1>
+			<p class="mt-1 text-slate-400">{{ $order->no_order }}</p>
 		</div>
-		<a href="{{ route('kasir.pesanan') }}" class="font-medium text-amber-600 hover:text-amber-800">
+		<a href="{{ route('kasir.pesanan') }}" class="font-medium text-emerald-400 hover:text-emerald-300">
 			← Kembali
 		</a>
 	</div>
@@ -17,28 +17,28 @@
 		<!-- Main Content -->
 		<div class="space-y-6 lg:col-span-2">
 			<!-- Order Summary -->
-			<div class="rounded-xl bg-white p-6 shadow-sm">
-				<h2 class="mb-4 text-xl font-semibold text-slate-800">Informasi Pesanan</h2>
+			<div class="rounded-xl border border-slate-700 bg-slate-900 p-6 shadow-sm">
+				<h2 class="mb-4 text-xl font-semibold text-white">Informasi Pesanan</h2>
 
 				<div class="grid grid-cols-2 gap-4">
 					<div>
-						<p class="text-sm font-semibold text-slate-600">No. Pesanan</p>
-						<p class="text-lg font-bold text-slate-800">{{ $order->no_order }}</p>
+						<p class="text-sm font-semibold text-slate-400">No. Pesanan</p>
+						<p class="text-lg font-bold text-white">{{ $order->no_order }}</p>
 					</div>
 
 					<div>
-						<p class="text-sm font-semibold text-slate-600">Waktu</p>
-						<p class="text-slate-800">{{ $order->created_at->format('d/m/Y H:i:s') }}</p>
+						<p class="text-sm font-semibold text-slate-400">Waktu</p>
+						<p class="text-slate-300">{{ $order->created_at->format('d/m/Y H:i:s') }}</p>
 					</div>
 
 					<div>
-						<p class="text-sm font-semibold text-slate-600">Nama Pelanggan</p>
-						<p class="text-lg font-bold text-slate-800">{{ $order->nama_pelanggan }}</p>
+						<p class="text-sm font-semibold text-slate-400">Nama Pelanggan</p>
+						<p class="text-lg font-bold text-white">{{ $order->nama_pelanggan }}</p>
 					</div>
 
 					<div>
-						<p class="text-sm font-semibold text-slate-600">Tipe Pesanan</p>
-						<p class="text-slate-800">
+						<p class="text-sm font-semibold text-slate-400">Tipe Pesanan</p>
+						<p class="text-slate-300">
 							@if ($order->tipe_pesanan === 'dine-in')
 								Makan di Tempat (Meja {{ $order->no_meja ?? '-' }})
 							@else
@@ -64,11 +64,11 @@
 
 			<!-- Items -->
 			<div class="rounded-xl bg-white p-6 shadow-sm">
-				<h2 class="mb-4 text-xl font-semibold text-slate-800">Daftar Item</h2>
+				<h2 class="mb-4 text-xl font-semibold text-white">Daftar Item</h2>
 
 				<div class="overflow-x-auto">
 					<table class="w-full">
-						<thead class="bg-slate-50">
+						<thead class="bg-slate-800">
 							<tr>
 								<th class="px-4 py-2 text-left text-sm font-semibold text-slate-700">Menu</th>
 								<th class="px-4 py-2 text-right text-sm font-semibold text-slate-700">Harga</th>
@@ -114,7 +114,7 @@
 			<!-- Payment Info -->
 			@if ($order->pembayaran)
 				<div class="rounded-xl bg-white p-6 shadow-sm">
-					<h2 class="mb-4 text-xl font-semibold text-slate-800">Informasi Pembayaran</h2>
+					<h2 class="mb-4 text-xl font-semibold text-white">Informasi Pembayaran</h2>
 
 					<div class="grid grid-cols-2 gap-4">
 						<div>
@@ -146,7 +146,7 @@
 		<div class="space-y-6">
 			<!-- Total Summary -->
 			<div class="rounded-xl border border-amber-200 bg-amber-50 p-6 shadow-sm">
-				<h3 class="mb-4 text-lg font-semibold text-slate-800">Ringkasan</h3>
+				<h3 class="mb-4 text-lg font-semibold text-white">Ringkasan</h3>
 
 				<div class="mb-4 space-y-2">
 					@php
@@ -178,7 +178,7 @@
 
 			<!-- Actions -->
 			<div class="space-y-3 rounded-xl bg-white p-6 shadow-sm">
-				<h3 class="mb-4 text-lg font-semibold text-slate-800">Aksi</h3>
+				<h3 class="mb-4 text-lg font-semibold text-white">Aksi</h3>
 
 				@if ($order->status_order !== 'selesai')
 					<form action="{{ route('order.updateStatus', $order->id_order) }}" method="POST">
@@ -214,7 +214,7 @@
 				</a>
 
 				<a href="{{ route('kasir.pesanan') }}"
-					class="block w-full rounded-lg bg-slate-200 py-2 text-center font-semibold text-slate-800 transition hover:bg-slate-300">
+					class="block w-full rounded-lg border border-slate-700 bg-slate-800 py-2 text-center font-semibold text-white transition hover:bg-slate-700">
 					Kembali ke Dashboard
 				</a>
 			</div>

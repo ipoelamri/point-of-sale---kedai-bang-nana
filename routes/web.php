@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BestCustomerController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\MenuController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 // Redirect halaman awal ke halaman menu publik
@@ -30,6 +31,8 @@ Route::get('/order/{order}/payment', [OrderController::class, 'showPayment'])->n
 Route::get('/payment/{order}/snap', [\App\Http\Controllers\PembayaranController::class, 'createSnapToken'])->name('pembayaran.snap');
 Route::post('/payment/callback', [\App\Http\Controllers\PembayaranController::class, 'webhookCallback'])->name('pembayaran.callback');
 Route::get('/payment/finish', [\App\Http\Controllers\PembayaranController::class, 'finishPayment'])->name('pembayaran.finish');
+Route::get('/order/{id}/success', [\App\Http\Controllers\PembayaranController::class, 'finishPayment'])->name('order.success');
+Route::get('/order/{id}/pending', [\App\Http\Controllers\PembayaranController::class, 'finishPayment'])->name('order.pending');
 
 // Route-route yang memerlukan otentikasi
 Route::middleware(['auth'])->group(function () {
@@ -46,11 +49,19 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pemilik/dashboard', [\App\Http\Controllers\RevenueController::class, 'dashboard'])->name('pemilik.dashboard');
     Route::get('/pemilik/laporan/export', [\App\Http\Controllers\RevenueController::class, 'exportReport'])->name('pemilik.export');
 
+    // Route Pelanggan Terbaik - Untuk Admin Kasir dan Pemilik
+    Route::middleware('auth')->group(function () {
+        Route::get('/best-customer', [BestCustomerController::class, 'index'])->name('best-customer.index');
+        Route::get('/best-customer/export/csv', [BestCustomerController::class, 'export'])->name('best-customer.export');
+        Route::get('/best-customer/export/pdf', [BestCustomerController::class, 'exportPdf'])->name('best-customer.export-pdf');
+        Route::get('/best-customer/{customerName}', [BestCustomerController::class, 'show'])->name('best-customer.show');
+    });
+
     // Route Resource untuk Manajemen Menu
-    Route::resource('menu', MenuController::class);
+    Route::resource('menu', MenuController::class)->middleware('can:admin');
 
     // Route Resource untuk Manajemen Kategori
-    Route::resource('kategori', KategoriController::class);
+    Route::resource('kategori', KategoriController::class)->middleware('can:admin');
 
     // Route Resource untuk Manajemen User (Hanya Admin)
     Route::resource('user', UserController::class)->middleware('can:admin');
