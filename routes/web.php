@@ -34,6 +34,9 @@ Route::get('/payment/finish', [\App\Http\Controllers\PembayaranController::class
 Route::get('/order/{id}/success', [\App\Http\Controllers\PembayaranController::class, 'finishPayment'])->name('order.success');
 Route::get('/order/{id}/pending', [\App\Http\Controllers\PembayaranController::class, 'finishPayment'])->name('order.pending');
 
+// Route untuk Pembayaran Tunai
+Route::post('/payment/{order}/cash', [\App\Http\Controllers\PembayaranController::class, 'processCash'])->name('pembayaran.cash');
+
 // Route-route yang memerlukan otentikasi
 Route::middleware(['auth'])->group(function () {
     // Route Dashboard Utama
@@ -42,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
     // Route Dashboard Kasir - Pesanan masuk
     Route::get('/kasir/pesanan', [\App\Http\Controllers\OrderListController::class, 'kasirDashboard'])->name('kasir.pesanan');
     Route::post('/pesanan/{order}/status', [\App\Http\Controllers\OrderListController::class, 'updateStatus'])->name('order.updateStatus');
+    Route::post('/pesanan/{order}/confirm-cash', [\App\Http\Controllers\PembayaranController::class, 'confirmCash'])->name('order.confirmCash');
     Route::get('/pesanan/{order}', [\App\Http\Controllers\OrderListController::class, 'show'])->name('order.show');
     Route::get('/pesanan/{order}/print', [\App\Http\Controllers\OrderListController::class, 'print'])->name('order.print');
 

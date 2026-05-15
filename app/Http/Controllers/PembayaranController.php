@@ -154,4 +154,55 @@ class PembayaranController extends Controller
             return view('order.pending', compact('order', 'pembayaran'));
         }
     }
+
+    /**
+     * Proses Pembayaran Tunai
+     * Membuat record pembayaran dengan metode tunai dan menunggu konfirmasi kasir
+     */
+    public function processCash(Order $order)
+    {
+        // Cek apakah sudah ada pembayaran untuk order ini
+        $pembayaran = Pembayaran::where('order_id', $order->id_order)->first();
+
+        if ($pembayaran && $pembayaran->status_bayar === 'lunas') {
+            return redirect()->route('menu.public')->with('success', 'Pesanan ini sudah dibayar.');
+        }
+
+        // Buat atau update record pembayaran
+        $pembayaran = Pembayaran::updateOrCreate(
+            ['order_id' => $order->id_order],
+            [
+                'metode_bayar' => 'tunai',
+                'status_bayar' => 'menunggu_kasir',
+                'snap_token' => null,
+            ]
+        );
+
+        // Hapus cart dari session
+        session()->forget('cart');
+
+        return view('order.cash-confirmation', compact('order', 'pembayaran'));
+    }
+
+    /**
+     * Kasir mengkonfirmasi pembayaran tunai (dari dashboard kasir)
+     */
+    public function confirmCash(Request $request, Order $order)
+    {
+        $pembayaran = Pembayaran::where('order_id', $order->id_order)->first();
+
+        if (!$pembayaran) {
+            return back()->with('error', 'Data pembayaran tidak ditemukan.');
+        }
+
+        $pembayaran->update([
+            'status_bayar' => 'lunas',
+            'waktu_bayar' => now(),
+        ]);
+
+        $order->update(['status_order' => 'lunas']);
+
+        return back()->with('success', 'Pembayaran tunai untuk pesanan ' . $order->no_order . ' telah dikonfirmasi.');
+    }
 }
+

@@ -3,29 +3,32 @@
 @section('title', 'Tambah Menu Baru')
 
 @section('content')
-	<h1 class="mb-6 text-3xl font-bold text-white">Tambah Menu Baru</h1>
+	<div class="mb-6">
+		<h1 class="text-2xl font-bold text-white">Tambah Menu Baru</h1>
+		<p class="mt-1 text-sm text-slate-400">Isi detail menu yang akan ditambahkan</p>
+	</div>
 
-	<div class="rounded-xl border border-slate-700 bg-slate-900 p-8 shadow-md">
+	<div class="glass-card rounded-2xl p-6 sm:p-8">
 		<form action="{{ route('menu.store') }}" method="POST" enctype="multipart/form-data">
 			@csrf
-			<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+			<div class="grid grid-cols-1 gap-5 md:grid-cols-2">
 
 				{{-- Nama Menu --}}
-				<div class="mb-4">
-					<label for="nama_menu" class="mb-2 block text-sm font-medium text-slate-300">Nama Menu</label>
+				<div>
+					<label for="nama_menu" class="form-label">Nama Menu</label>
 					<input type="text" name="nama_menu" id="nama_menu" value="{{ old('nama_menu') }}"
-						class="@error('nama_menu') border-red-500 @enderror w-full rounded-lg border border-slate-600 bg-slate-800 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+						class="form-input @error('nama_menu') !border-red-500/50 @enderror"
 						required>
 					@error('nama_menu')
-						<p class="mt-1 text-xs text-red-400">{{ $message }}</p>
+						<p class="mt-1.5 text-xs text-red-400">{{ $message }}</p>
 					@enderror
 				</div>
 
 				{{-- Kategori --}}
-				<div class="mb-4">
-					<label for="kategori_id" class="mb-2 block text-sm font-medium text-slate-300">Kategori</label>
+				<div>
+					<label for="kategori_id" class="form-label">Kategori</label>
 					<select name="kategori_id" id="kategori_id"
-						class="@error('kategori_id') border-red-500 @enderror w-full rounded-lg border border-slate-600 bg-slate-800 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+						class="form-input @error('kategori_id') !border-red-500/50 @enderror"
 						required>
 						<option value="">Pilih Kategori</option>
 						@foreach ($kategoris as $kategori)
@@ -35,62 +38,60 @@
 						@endforeach
 					</select>
 					@error('kategori_id')
-						<p class="mt-1 text-xs text-red-400">{{ $message }}</p>
+						<p class="mt-1.5 text-xs text-red-400">{{ $message }}</p>
 					@enderror
 				</div>
 
 				{{-- Harga --}}
-				<div class="mb-4">
-					<label for="harga" class="mb-2 block text-sm font-medium text-slate-300">Harga</label>
+				<div>
+					<label for="harga" class="form-label">Harga</label>
 					<input type="number" name="harga" id="harga" value="{{ old('harga') }}"
-						class="@error('harga') border-red-500 @enderror w-full rounded-lg border border-slate-600 bg-slate-800 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+						class="form-input @error('harga') !border-red-500/50 @enderror"
 						required min="0">
 					@error('harga')
-						<p class="mt-1 text-xs text-red-400">{{ $message }}</p>
+						<p class="mt-1.5 text-xs text-red-400">{{ $message }}</p>
 					@enderror
 				</div>
 
 				{{-- Stok --}}
-				<div class="mb-4">
-					<label for="stok" class="mb-2 block text-sm font-medium text-slate-700">Stok</label>
+				<div>
+					<label for="stok" class="form-label">Stok</label>
 					<input type="number" name="stok" id="stok" value="{{ old('stok') }}"
-						class="@error('stok') border-red-500 @enderror w-full rounded-lg border border-slate-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
+						class="form-input @error('stok') !border-red-500/50 @enderror"
 						required min="0">
 					@error('stok')
-						<p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+						<p class="mt-1.5 text-xs text-red-400">{{ $message }}</p>
 					@enderror
 				</div>
 
 				{{-- Deskripsi --}}
-				<div class="mb-4 md:col-span-2">
-					<label for="deskripsi" class="mb-2 block text-sm font-medium text-slate-700">Deskripsi</label>
+				<div class="md:col-span-2">
+					<label for="deskripsi" class="form-label">Deskripsi</label>
 					<textarea name="deskripsi" id="deskripsi" rows="4"
-					 class="@error('deskripsi') border-red-500 @enderror w-full rounded-lg border border-slate-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500">{{ old('deskripsi') }}</textarea>
+					 class="form-input @error('deskripsi') !border-red-500/50 @enderror">{{ old('deskripsi') }}</textarea>
 					@error('deskripsi')
-						<p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+						<p class="mt-1.5 text-xs text-red-400">{{ $message }}</p>
 					@enderror
 				</div>
 
 				{{-- Foto --}}
-				<div class="mb-4 md:col-span-2">
-					<label for="foto" class="mb-2 block text-sm font-medium text-slate-700">Foto Menu</label>
+				<div class="md:col-span-2">
+					<label for="foto" class="form-label">Foto Menu</label>
 					<input type="file" name="foto" id="foto" accept="image/*"
-						class="@error('foto') border-red-500 @enderror w-full text-sm text-slate-500 file:mr-4 file:rounded-lg file:border-0 file:bg-amber-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-amber-700 hover:file:bg-amber-100">
+						class="w-full text-sm text-slate-400 file:mr-4 file:rounded-xl file:border-0 file:bg-pink-500/10 file:px-4 file:py-2.5 file:text-sm file:font-semibold file:text-pink-400 hover:file:bg-pink-500/20 @error('foto') text-red-400 @enderror">
 					@error('foto')
-						<p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+						<p class="mt-1.5 text-xs text-red-400">{{ $message }}</p>
 					@enderror
 				</div>
 
 			</div>
 
 			{{-- Tombol Aksi --}}
-			<div class="mt-6 flex justify-end gap-4">
-				<a href="{{ route('menu.index') }}"
-					class="rounded-lg border border-slate-600 bg-slate-800 px-4 py-2 font-medium text-slate-300 transition duration-300 ease-in-out hover:bg-slate-700">
+			<div class="mt-8 flex justify-end gap-3">
+				<a href="{{ route('menu.index') }}" class="btn btn-ghost">
 					Batal
 				</a>
-				<button type="submit"
-					class="rounded-lg bg-amber-500 px-4 py-2 font-medium text-white transition duration-300 ease-in-out hover:bg-amber-600">
+				<button type="submit" class="btn btn-secondary">
 					Simpan Menu
 				</button>
 			</div>

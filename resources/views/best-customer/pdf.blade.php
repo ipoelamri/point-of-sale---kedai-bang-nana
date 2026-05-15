@@ -247,7 +247,7 @@
 				<div class="logo">
 					Kedai Bang <span class="brand">Nana</span>
 				</div>
-				<div class="report-title">📊 Laporan Pelanggan Terbaik</div>
+				<div class="report-title">Laporan Pelanggan Terbaik</div>
 				<div class="report-info">
 					<p>Tanggal Laporan: {{ now()->format('d F Y H:i:s') }}</p>
 					<p>Periode: {{ $periodLabel }} | Batasan: Top {{ $topLimit }}</p>
@@ -268,11 +268,11 @@
 							<div class="summary-value">{{ number_format($summaryStats->total_transactions ?? 0) }}</div>
 						</div>
 						<div class="summary-item">
-							<div class="summary-label">💰 Total Pendapatan</div>
+							<div class="summary-label">Total Pendapatan</div>
 							<div class="summary-value currency">Rp {{ number_format($summaryStats->total_revenue ?? 0, 0, ',', '.') }}</div>
 						</div>
 						<div class="summary-item">
-							<div class="summary-label">📊 Rata-rata Transaksi</div>
+							<div class="summary-label">Rata-rata Transaksi</div>
 							<div class="summary-value currency">Rp {{ number_format($summaryStats->avg_transaction ?? 0, 0, ',', '.') }}
 							</div>
 						</div>
@@ -287,10 +287,10 @@
 						<tr>
 							<th width="8%">🏆 Peringkat</th>
 							<th width="35%">Nama Pelanggan</th>
-							<th width="12%" class="text-center">📋 Pesanan</th>
-							<th width="20%" class="text-right">💰 Total Pengeluaran</th>
-							<th width="15%" class="text-right">📊 Rata-rata</th>
-							<th width="10%" class="text-center">🕐 Terakhir</th>
+							<th width="12%" class="text-center">Pesanan</th>
+							<th width="20%" class="text-right">Total Pengeluaran</th>
+							<th width="15%" class="text-right">Rata-rata</th>
+							<th width="10%" class="text-center">Terakhir</th>
 						</tr>
 					</thead>
 					<tbody>

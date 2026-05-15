@@ -6,17 +6,12 @@
 	<div class="space-y-6">
 		<!-- Header dengan Back Button -->
 		<div class="flex items-center justify-between">
-			<div class="flex-1 rounded-lg px-6 py-4 text-white"
-				style="background: linear-gradient(135deg, #dc0080 0%, #d90b84 100%);">
+			<div>
 				<div class="flex items-center gap-4">
-					<a href="{{ route('best-customer.index') }}" class="transition hover:text-pink-100">
-						<svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-						</svg>
-					</a>
+					<a href="{{ route('best-customer.index') }}" class="btn btn-ghost text-sm">← Kembali</a>
 					<div>
-						<h1 class="text-3xl font-bold">{{ $customerName }}</h1>
-						<p class="mt-1 text-pink-100">Detail Riwayat Pembelian dan Analisis</p>
+						<h1 class="text-2xl font-bold text-white">{{ $customerName }}</h1>
+						<p class="mt-1 text-sm text-slate-400">Detail Riwayat Pembelian dan Analisis</p>
 					</div>
 				</div>
 			</div>
@@ -25,7 +20,7 @@
 		<!-- Customer Statistics Cards -->
 		<div class="grid grid-cols-1 gap-4 md:grid-cols-5">
 			<!-- Total Orders Card -->
-			<div class="rounded-xl bg-slate-800 p-6 shadow-md">
+			<div class="glass-card rounded-2xl p-5">
 				<div class="flex items-center justify-between">
 					<div>
 						<p class="text-sm text-slate-400">Total Pesanan</p>
@@ -42,7 +37,7 @@
 			</div>
 
 			<!-- Total Spending Card -->
-			<div class="rounded-xl bg-slate-800 p-6 shadow-md">
+			<div class="glass-card rounded-2xl p-5">
 				<div class="flex items-center justify-between">
 					<div>
 						<p class="text-sm text-slate-400">Total Pengeluaran</p>
@@ -60,7 +55,7 @@
 			</div>
 
 			<!-- Average Spending Card -->
-			<div class="rounded-xl bg-slate-800 p-6 shadow-md">
+			<div class="glass-card rounded-2xl p-5">
 				<div class="flex items-center justify-between">
 					<div>
 						<p class="text-sm text-slate-400">Rata-rata Pesanan</p>
@@ -78,7 +73,7 @@
 			</div>
 
 			<!-- First Order Date -->
-			<div class="rounded-xl bg-slate-800 p-6 shadow-md">
+			<div class="glass-card rounded-2xl p-5">
 				<div class="flex items-center justify-between">
 					<div>
 						<p class="text-sm text-slate-400">Pesanan Pertama</p>
@@ -96,7 +91,7 @@
 			</div>
 
 			<!-- Last Order Date -->
-			<div class="rounded-xl bg-slate-800 p-6 shadow-md">
+			<div class="glass-card rounded-2xl p-5">
 				<div class="flex items-center justify-between">
 					<div>
 						<p class="text-sm text-slate-400">Pesanan Terakhir</p>
@@ -115,31 +110,31 @@
 		</div>
 
 		<!-- Filter Periode -->
-		<div class="rounded-xl bg-slate-800 p-6 shadow-md">
+		<div class="glass-card rounded-2xl p-5">
 			<form method="GET" class="flex items-center gap-4">
 				<label for="period" class="text-sm font-semibold text-slate-300">Periode:</label>
 				<select name="period" id="period"
-					class="rounded-lg border border-slate-600 bg-slate-700 px-3 py-2 text-white focus:border-pink-500 focus:outline-none">
+					class="form-input">
 					<option value="7" {{ $period == 7 ? 'selected' : '' }}>7 Hari Terakhir</option>
 					<option value="30" {{ $period == 30 ? 'selected' : '' }}>30 Hari Terakhir</option>
 					<option value="60" {{ $period == 60 ? 'selected' : '' }}>60 Hari Terakhir</option>
 					<option value="90" {{ $period == 90 ? 'selected' : '' }}>90 Hari Terakhir</option>
 					<option value="365" {{ $period == 365 ? 'selected' : '' }}>1 Tahun Terakhir</option>
 				</select>
-				<button type="submit" class="rounded-lg bg-pink-600 px-4 py-2 font-semibold text-white hover:bg-pink-700">
+				<button type="submit" class="btn btn-primary">
 					Filter
 				</button>
 			</form>
 		</div>
 
 		<!-- Order History Table -->
-		<div class="rounded-xl bg-slate-800 p-6 shadow-md">
+		<div class="glass-card rounded-2xl p-5">
 			<h2 class="mb-4 text-xl font-bold text-white">📋 Riwayat Pesanan</h2>
 
 			@if ($customerOrders->count() > 0)
 				<div class="overflow-x-auto">
 					<table class="w-full text-sm">
-						<thead class="border-b border-slate-700 bg-slate-900">
+						<thead class="border-b border-white/5">
 							<tr>
 								<th class="px-4 py-3 text-left text-slate-300">No. Pesanan</th>
 								<th class="px-4 py-3 text-left text-slate-300">Tanggal</th>
@@ -151,9 +146,9 @@
 								<th class="px-4 py-3 text-center text-slate-300">Aksi</th>
 							</tr>
 						</thead>
-						<tbody class="divide-y divide-slate-700">
+						<tbody class="divide-y divide-white/5">
 							@foreach ($customerOrders as $order)
-								<tr class="transition hover:bg-slate-700">
+								<tr class="transition hover:bg-white/[0.02]">
 									<td class="px-4 py-3 font-semibold text-white">{{ $order->no_order }}</td>
 									<td class="px-4 py-3 text-slate-300">
 										<div class="text-sm">{{ $order->created_at->format('d/m/Y') }}</div>
