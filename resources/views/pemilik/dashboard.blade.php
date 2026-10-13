@@ -63,7 +63,19 @@
 	<div class="mb-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
 		<div class="glass-card rounded-2xl p-6">
 			<h3 class="mb-4 text-base font-bold text-white">Pendapatan per Kategori</h3>
-			<canvas id="categoryChart"></canvas>
+			@if (count($categoryLabels) > 0)
+				<canvas id="categoryChart"></canvas>
+			@else
+				<canvas id="categoryChart" class="hidden"></canvas>
+				<div class="flex flex-col items-center justify-center py-10 text-center">
+					<svg class="mb-3 h-12 w-12 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
+						<path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+					</svg>
+					<p class="text-sm font-medium text-slate-400">Belum ada data kategori</p>
+					<p class="mt-1 text-xs text-slate-500">Data akan muncul saat ada transaksi bulan ini</p>
+				</div>
+			@endif
 		</div>
 		<div class="glass-card overflow-hidden rounded-2xl">
 			<div class="p-6 pb-3"><h3 class="text-base font-bold text-white">5 Menu Terlaris</h3></div>
@@ -77,13 +89,19 @@
 						</tr>
 					</thead>
 					<tbody class="divide-y divide-white/5">
-						@foreach ($topMenus as $menu)
+						@forelse ($topMenus as $menu)
 							<tr class="hover:bg-white/[0.02]">
 								<td class="px-5 py-3 text-slate-300">{{ $menu->nama_menu }}</td>
 								<td class="px-5 py-3 text-right font-medium text-slate-200">{{ $menu->total_qty }}</td>
 								<td class="px-5 py-3 text-right font-medium text-emerald-400">Rp {{ number_format($menu->total_revenue, 0, ',', '.') }}</td>
 							</tr>
-						@endforeach
+						@empty
+							<tr>
+								<td colspan="3" class="px-5 py-8 text-center">
+									<p class="text-sm text-slate-500">Belum ada data penjualan bulan ini</p>
+								</td>
+							</tr>
+						@endforelse
 					</tbody>
 				</table>
 			</div>
@@ -139,5 +157,13 @@
 				options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'bottom', labels: { padding: 16 } } } }
 			});
 		@endif
+
+		// Export Laporan
+		const exportBtn = document.getElementById('btn-export');
+		if (exportBtn) {
+			exportBtn.addEventListener('click', () => {
+				window.location.href = '{{ route("pemilik.export") }}';
+			});
+		}
 	</script>
 @endpush
