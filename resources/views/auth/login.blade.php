@@ -24,8 +24,8 @@
 			<div class="glass-card rounded-2xl p-8">
 				<!-- Logo and Title -->
 				<div class="mb-8 text-center">
-					<div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl gradient-primary shadow-lg shadow-pink-500/25">
-						<span class="text-2xl font-bold text-white">N</span>
+					<div class="mx-auto mb-4 flex items-center justify-center">
+						<img src="{{ asset('images/logo.png') }}" alt="Kedai Bang Nana" class="h-16 w-auto object-contain drop-shadow-[0_8px_20px_rgba(236,72,153,0.35)]">
 					</div>
 					<h1 class="mb-1 text-center text-2xl font-bold text-white">
 						Kedai Bang <span class="text-gradient-primary">Nana</span>

@@ -8,6 +8,8 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+		<!-- Lucide Icons -->
+		<script src="https://unpkg.com/lucide@latest"></script>
 		@vite(['resources/css/app.css', 'resources/js/app.js'])
 	</head>
 
@@ -17,9 +19,7 @@
 			<header class="glass-strong">
 				<div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
 					<div class="flex items-center gap-3">
-						<div class="flex h-10 w-10 items-center justify-center rounded-xl gradient-primary shadow-lg">
-							<span class="text-lg font-bold text-white">N</span>
-						</div>
+						<img src="{{ asset('images/logo.png') }}" alt="Kedai Bang Nana" class="h-10 w-auto object-contain drop-shadow-[0_4px_12px_rgba(236,72,153,0.3)]">
 						<div>
 							<h1 class="text-xl font-bold text-white">Kedai Bang <span class="text-gradient-primary">Nana</span></h1>
 							<p class="text-xs text-slate-400">Café & Resto</p>
@@ -33,7 +33,7 @@
 				<div class="glass-card animate-fade-in-up rounded-2xl p-8 text-center">
 					<!-- Success Icon -->
 					<div class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full gradient-success shadow-lg shadow-emerald-500/25">
-						<span class="text-4xl">✓</span>
+						<i data-lucide="check" class="w-10 h-10 text-white"></i>
 					</div>
 
 					<h2 class="mb-2 text-2xl font-bold text-white">Pesanan Berhasil Dibuat!</h2>
@@ -87,8 +87,9 @@
 						</ol>
 					</div>
 
-					<a href="{{ route('menu.public') }}" class="btn btn-primary w-full py-3">
-						Kembali ke Menu
+					<a href="{{ route('menu.public') }}" class="btn btn-primary w-full py-3 inline-flex items-center justify-center gap-2">
+						<i data-lucide="arrow-left" class="w-4 h-4"></i>
+						<span>Kembali ke Menu</span>
 					</a>
 				</div>
 			</main>
@@ -97,6 +98,13 @@
 				<p>&copy; 2026 Kedai Bang Nana. Semua hak cipta dilindungi.</p>
 			</footer>
 		</div>
+
+		<!-- Lucide Init -->
+		<script>
+			if (window.lucide) {
+				lucide.createIcons();
+			}
+		</script>
 	</body>
 
 </html>

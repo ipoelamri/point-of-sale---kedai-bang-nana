@@ -21,7 +21,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Route untuk Self-Service Ordering (Public, tanpa login)
 Route::get('/menu-pelanggan', [OrderController::class, 'indexPublic'])->name('menu.public');
 Route::post('/cart/add/{menu}', [OrderController::class, 'addToCart'])->name('cart.add');
+Route::patch('/cart/update/{menuId}', [OrderController::class, 'updateCart'])->name('cart.update');
 Route::delete('/cart/remove/{menuId}', [OrderController::class, 'removeFromCart'])->name('cart.remove');
+Route::delete('/cart/clear', [OrderController::class, 'clearCart'])->name('cart.clear');
 Route::get('/cart', [OrderController::class, 'viewCart'])->name('cart.view');
 Route::get('/checkout', [OrderController::class, 'showCheckout'])->name('order.checkout');
 Route::post('/checkout', [OrderController::class, 'processCheckout'])->name('order.processCheckout');
@@ -42,8 +44,10 @@ Route::middleware(['auth'])->group(function () {
     // Route Dashboard Utama
     Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
-    // Route Dashboard Kasir - Pesanan masuk
+    // Route Dashboard Kasir - Pesanan masuk & Pesan Manual
     Route::get('/kasir/pesanan', [\App\Http\Controllers\OrderListController::class, 'kasirDashboard'])->name('kasir.pesanan');
+    Route::get('/kasir/pesan-manual', [\App\Http\Controllers\OrderListController::class, 'createManual'])->name('kasir.pesanan.manual');
+    Route::post('/kasir/pesan-manual', [\App\Http\Controllers\OrderListController::class, 'storeManual'])->name('kasir.pesanan.manual.store');
     Route::post('/pesanan/{order}/status', [\App\Http\Controllers\OrderListController::class, 'updateStatus'])->name('order.updateStatus');
     Route::post('/pesanan/{order}/confirm-cash', [\App\Http\Controllers\PembayaranController::class, 'confirmCash'])->name('order.confirmCash');
     Route::get('/pesanan/{order}', [\App\Http\Controllers\OrderListController::class, 'show'])->name('order.show');

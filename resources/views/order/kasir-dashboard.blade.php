@@ -6,13 +6,19 @@
 	<div class="mb-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
 		<div>
 			<h1 class="text-2xl font-bold text-white">Dashboard Kasir</h1>
-			<p class="mt-1 text-sm text-slate-400">Kelola pesanan yang masuk</p>
+			<p class="mt-1 text-sm text-slate-400">Kelola pesanan yang masuk dan transaksi pelanggan</p>
 		</div>
-		<div class="flex items-center gap-2 rounded-xl bg-white/5 px-4 py-2 text-sm text-slate-400">
-			<svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-				<path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-			</svg>
-			<span id="current-time" class="font-medium text-white">{{ now()->format('H:i:s') }}</span>
+		<div class="flex items-center gap-3">
+			<a href="{{ route('kasir.pesanan.manual') }}" class="btn btn-primary inline-flex items-center gap-2 px-4 py-2 text-sm font-bold shadow-lg shadow-pink-500/25">
+				<i data-lucide="plus-circle" class="w-4 h-4"></i>
+				<span>Pesan Manual (POS)</span>
+			</a>
+			<div class="flex items-center gap-2 rounded-xl bg-white/5 px-4 py-2 text-sm text-slate-400">
+				<svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+				</svg>
+				<span id="current-time" class="font-medium text-white">{{ now()->format('H:i:s') }}</span>
+			</div>
 		</div>
 	</div>
 

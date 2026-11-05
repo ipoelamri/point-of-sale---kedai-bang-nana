@@ -8,6 +8,8 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+		<!-- Lucide Icons -->
+		<script src="https://unpkg.com/lucide@latest"></script>
 		@vite('resources/css/app.css')
 		<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 	</head>
@@ -29,9 +31,7 @@
 
 				<!-- Logo -->
 				<div class="flex items-center gap-3 px-5 py-5">
-					<div class="flex h-10 w-10 items-center justify-center rounded-xl gradient-primary shadow-lg">
-						<span class="text-lg font-bold text-white">N</span>
-					</div>
+					<img src="{{ asset('images/logo.png') }}" alt="Kedai Bang Nana" class="h-10 w-auto object-contain drop-shadow-[0_4px_12px_rgba(236,72,153,0.3)]">
 					<div>
 						<h2 class="text-lg font-bold text-white">
 							Kedai Bang <span class="text-gradient-primary">Nana</span>
@@ -102,13 +102,21 @@
 
 					<p class="mb-2 mt-5 px-3 text-[10px] font-semibold uppercase tracking-widest text-slate-500">Operasional</p>
 
+					<a href="{{ route('kasir.pesanan.manual') }}"
+						class="{{ request()->routeIs('kasir.pesanan.manual') ? 'bg-pink-500/15 text-pink-400 border-pink-500/30' : 'text-slate-400 border-transparent hover:text-white hover:bg-white/5' }} flex items-center gap-3 rounded-xl border px-3 py-2.5 text-sm font-medium transition-all duration-200">
+						<svg class="h-5 w-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+						</svg>
+						<span>Pesan Manual (POS)</span>
+					</a>
+
 					<a href="{{ route('kasir.pesanan') }}"
-						class="{{ request()->routeIs('kasir.*', 'order.*') ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30' : 'text-slate-400 border-transparent hover:text-white hover:bg-white/5' }} flex items-center gap-3 rounded-xl border px-3 py-2.5 text-sm font-medium transition-all duration-200">
+						class="{{ request()->routeIs('kasir.pesanan', 'order.show', 'order.print') ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30' : 'text-slate-400 border-transparent hover:text-white hover:bg-white/5' }} flex items-center gap-3 rounded-xl border px-3 py-2.5 text-sm font-medium transition-all duration-200">
 						<svg class="h-5 w-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
 							<path stroke-linecap="round" stroke-linejoin="round"
 								d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4z" />
 						</svg>
-						<span>Pesanan</span>
+						<span>Pesanan Masuk</span>
 					</a>
 
 					<!-- Pelanggan Terbaik Link - Accessible to all authenticated users -->
@@ -173,6 +181,13 @@
 				</main>
 			</div>
 		</div>
+
+		<!-- Lucide Init -->
+		<script>
+			if (window.lucide) {
+				lucide.createIcons();
+			}
+		</script>
 
 		@stack('scripts')
 

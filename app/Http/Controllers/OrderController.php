@@ -60,6 +60,64 @@ class OrderController extends Controller
     }
 
     /**
+     * Update quantity item di cart
+     */
+    public function updateCart(Request $request, $menuId)
+    {
+        $cart = session('cart', []);
+        $quantity = (int) $request->input('quantity', 1);
+
+        if (isset($cart[$menuId])) {
+            if ($quantity <= 0) {
+                unset($cart[$menuId]);
+                $msg = 'Item dihapus dari keranjang';
+            } else {
+                $cart[$menuId]['quantity'] = $quantity;
+                $msg = 'Jumlah pesanan diperbarui';
+            }
+            session(['cart' => $cart]);
+
+            if ($request->wantsJson() || $request->ajax()) {
+                $total = 0;
+                $itemSubtotal = isset($cart[$menuId]) ? $cart[$menuId]['harga'] * $cart[$menuId]['quantity'] : 0;
+                $itemCount = 0;
+                foreach ($cart as $it) {
+                    $total += $it['harga'] * $it['quantity'];
+                    $itemCount += $it['quantity'];
+                }
+                return response()->json([
+                    'success' => true,
+                    'message' => $msg,
+                    'quantity' => $quantity,
+                    'subtotal' => $itemSubtotal,
+                    'subtotal_formatted' => 'Rp ' . number_format($itemSubtotal, 0, ',', '.'),
+                    'total' => $total,
+                    'total_formatted' => 'Rp ' . number_format($total, 0, ',', '.'),
+                    'item_count' => $itemCount,
+                    'cart_count' => count($cart),
+                ]);
+            }
+
+            return back()->with('success', $msg);
+        }
+
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json(['success' => false, 'message' => 'Item tidak ditemukan'], 404);
+        }
+
+        return back()->with('error', 'Item tidak ditemukan di keranjang');
+    }
+
+    /**
+     * Kosongkan seluruh cart
+     */
+    public function clearCart()
+    {
+        session()->forget('cart');
+        return redirect()->route('cart.view')->with('success', 'Keranjang berhasil dikosongkan');
+    }
+
+    /**
      * Hapus item dari cart
      */
     public function removeFromCart($menuId)
@@ -67,6 +125,23 @@ class OrderController extends Controller
         $cart = session('cart', []);
         unset($cart[$menuId]);
         session(['cart' => $cart]);
+
+        if (request()->wantsJson() || request()->ajax()) {
+            $total = 0;
+            $itemCount = 0;
+            foreach ($cart as $it) {
+                $total += $it['harga'] * $it['quantity'];
+                $itemCount += $it['quantity'];
+            }
+            return response()->json([
+                'success' => true,
+                'message' => 'Item berhasil dihapus',
+                'total' => $total,
+                'total_formatted' => 'Rp ' . number_format($total, 0, ',', '.'),
+                'item_count' => $itemCount,
+                'cart_count' => count($cart),
+            ]);
+        }
 
         return back()->with('success', 'Item dihapus dari keranjang');
     }

@@ -120,7 +120,7 @@
 		<div class="header">
 			<h1>KEDAI BANG NANA</h1>
 			<p>Café & Resto</p>
-			<p>Jl. Contoh No. 123, Kota</p>
+			<p>Cipocok, Kota Serang Banten</p>
 		</div>
 
 		<!-- Order Info -->
@@ -140,10 +140,10 @@
 			<div class="order-info-row">
 				<span class="label">Tipe:</span>
 				<span>
-					@if ($order->tipe_pesanan === 'dine-in')
+					@if (in_array(strtolower($order->tipe_pesanan), ['dine-in', 'dine in']))
 						Meja {{ $order->no_meja ?? '-' }}
 					@else
-						Bawa
+						Bawa Pulang
 					@endif
 				</span>
 			</div>
